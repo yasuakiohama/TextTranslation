@@ -1,0 +1,21 @@
+./source/ja/checkNotFound/week.jsonと./source/other/kr/checkNotFound/week.jsonの比較
+./source/other/kr/checkNotFound/check.txt not found
+
+./source/ja/jsonNotFound/week.jsonと./source/other/kr/jsonNotFound/week.jsonの比較
+./source/other/kr/jsonNotFound/week.json not found
+
+./source/ja/specialCharacter/false/text.jsonと./source/other/kr/specialCharacter/false/text.jsonの比較
+tag:0 ja:"~!@#$%^&*()_+{}|:<>?'fdfd`fdfd", kr:"~!@#$%^&*()_+{}|:<>?'fdfd`fdfd", check:"~!@#$%^&*()_+{}|:<>?'fdfd`fdfd____"  error01: 未翻訳 error02: チェック翻訳と違う
+tag:1 ja:"\"\n\\n\t\r\\t\\rfdfdffff", kr:"\"\n\\n\t\r\\t\\rfdfdffff", check:"\"\n\\n\t\r\\t\\rfdfdffff____"  error01: 未翻訳 error02: チェック翻訳と違う
+
+./source/ja/specialCharacter/true/text.jsonと./source/other/kr/specialCharacter/true/text.jsonの比較
+
+./source/ja/week/false/week.jsonと./source/other/kr/week/false/week.jsonの比較
+tag:1 ja:"月曜日", kr:"月曜日", check:"월요일"  error01: 未翻訳 error02: チェック翻訳と違う
+tag:2 ja:"火曜日", kr:"火曜日", check:"화요일"  error01: 未翻訳 error02: チェック翻訳と違う
+tag:3 ja:"水曜日", kr:"", check:"수요일"  error02: チェック翻訳と違う error04: krの翻訳が無い
+tag:4 ja:"木曜日", kr:"목", check:"목요일"  error02: チェック翻訳と違う
+tag:6 ja:"土曜日", kr:, check:"토요일"  error02: チェック翻訳と違う error06: krのtagが無い
+
+./source/ja/week/true/week.jsonと./source/other/kr/week/true/week.jsonの比較
+
