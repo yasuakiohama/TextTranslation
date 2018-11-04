@@ -64,34 +64,35 @@ IFS=$'\n'
 #└── tool
 #    └── textTranslationChecker.sh
 
-#グローバル変数
-echo "グローバル変数"
-CHECK_FILE_NAME="check.txt"
-declare -A CHECK_DATA_LIST;# bashで連想配列を使えるようにする宣言
-
 #引数代入
 translate=${1}
 
-#変数作成
-echo "変数作成"
+#基本パラメータ作成
+echo "基本パラメータ作成"
 base="ja"
+logFile="./log/${base}_${translate}_error_log.txt"
+checkFileName="check.txt"
 baseDirectory="./source/${base}"
 translateDirectory="./source/other/${translate}"
+echo "base="'"'"${base}"'"'
+echo "translate="'"'"${translate}"'"'
+echo "logFile="'"'"${logFile}"'"'
+echo "checkFileName="'"'"${checkFileName}"'"'
+echo "baseDirectory="'"'"${baseDirectory}"'"'
+echo "translateDirectory="'"'"${translateDirectory}"'"'
+echo
+
+#変数作成
+echo "変数作成"
+declare -A checkDataList;# bashで連想配列を使えるようにする宣言
 baseJsonList=(`find ${baseDirectory} -name "*.json"`)
 baseCheckFile=""
 translateJson="";
 translateCheckFile=""
-logFile="./log/${base}_${translate}_error_log.txt"
 baseJson=""
-echo "base="'"'"${base}"'"'
-echo "translate="'"'"${translate}"'"'
-echo "baseDirectory="'"'"${baseDirectory}"'"'
 echo "baseJsonList="
 echo "${baseJsonList[*]}"
-echo "CHECK_FILE_NAME="'"'"${CHECK_FILE_NAME}"'"'
-echo "logFile="'"'"${logFile}"'"'
 echo
-
 
 #ディレクトリ作成
 echo "ディレクトリ作成"
@@ -114,21 +115,21 @@ init () {
     echo "${translateJson} not found" >> "${logFile}"
     return 1
   fi
-  baseCheckFile=`dirname ${baseJson}`"/${CHECK_FILE_NAME}"
+  baseCheckFile=`dirname ${baseJson}`"/${checkFileName}"
   if [ ! -e "${baseCheckFile}" ]; then
     echo "${baseCheckFile} not found"
     echo "${baseCheckFile} not found" >> "${logFile}"
     return 2
   fi
-  translateCheckFile=`dirname ${translateJson}`"/${CHECK_FILE_NAME}"
+  translateCheckFile=`dirname ${translateJson}`"/${checkFileName}"
   if [ ! -e "${translateCheckFile}" ]; then
     echo "${translateCheckFile} not found"
     echo "${translateCheckFile} not found" >> "${logFile}"
     return 3
   fi
-  CHECK_DATA_LIST=()
+  checkDataList=()
   #表示
-  #echo "CHECK_DATA_LIST count:${#CHECK_DATA_LIST[@]}"
+  #echo "checkDataList count:${#checkDataList[@]}"
   echo "baseJson="'"'"${baseJson}"'"'
   echo "translateJson="'"'"${translateJson}"'"'
   echo "baseCheckFile="'"'"${baseCheckFile}"'"'
@@ -144,13 +145,13 @@ createCheckDataList () {
   local _textList=(`cut -d ' ' -f3- ${translateCheckFile} | tr -d '\r'`)
   for tag in ${!_tagList[@]}
   do
-    CHECK_DATA_LIST[${_tagList[${tag}]}]=${_textList[${tag}]}
+    checkDataList[${_tagList[${tag}]}]=${_textList[${tag}]}
   done
 #連想配列表示
-  echo "データ数=${#CHECK_DATA_LIST[@]}"
-  for tag in ${!CHECK_DATA_LIST[@]};
+  echo "データ数=${#checkDataList[@]}"
+  for tag in ${!checkDataList[@]};
   do
-    echo 'CHECK_DATA_LIST["'${tag}'"]='"${CHECK_DATA_LIST[$tag]}"
+    echo 'checkDataList["'${tag}'"]='"${checkDataList[$tag]}"
   done
   echo
 }
@@ -169,7 +170,7 @@ checkUpdate () {
   local _textList=(`cut -d ' ' -f3- ${baseCheckFile} | tr -d '\r'`)
   for index in ${!_tagList[@]};
   do
-    containsElement "${_tagList[$index]}" "${!CHECK_DATA_LIST[@]}"
+    containsElement "${_tagList[$index]}" "${!checkDataList[@]}"
     if [ $? -ne 0 ]; then
       echo "tag:${_tagList[$index]} text:${_textList[$index]} が${translateJson}にありません。元のファイルが更新されています"
       echo "tag:${_tagList[$index]} text:${_textList[$index]} が${translateJson}にありません。元のファイルが更新されています" >> "${logFile}"
@@ -181,7 +182,7 @@ checkUpdate () {
 #比較を行う
 checkJson () {
   echo "比較を行う"
-  for tag in ${!CHECK_DATA_LIST[@]}
+  for tag in ${!checkDataList[@]}
   do
     local _baseText=`jq '.[] | select(.tag == '${tag}') | .text' "${baseJson}"`
     local _translateText=`jq '.[] | select(.tag == '${tag}') | .text' "${translateJson}"`
@@ -189,7 +190,7 @@ checkJson () {
     if [ "${_baseText}" = "${_translateText}" ]; then
       _checkBeforeAndAfter+=" error01: 未翻訳"
     fi
-    if [ "${CHECK_DATA_LIST[${tag}]}" != "${_translateText}" ]; then
+    if [ "${checkDataList[${tag}]}" != "${_translateText}" ]; then
       _checkBeforeAndAfter+=" error02: チェック翻訳と違う"
     fi
     if [ "${_baseText}" = '""' ]; then
@@ -204,9 +205,9 @@ checkJson () {
     if [ -z "$_translateText" ]; then
       _checkBeforeAndAfter+=" error06: ${translate}のtagが無い"
     fi
-    echo "tag:${tag} ${base}:${_baseText}, ${translate}:${_translateText}, check:${CHECK_DATA_LIST[${tag}]} $_checkBeforeAndAfter"
+    echo "tag:${tag} ${base}:${_baseText}, ${translate}:${_translateText}, check:${checkDataList[${tag}]} $_checkBeforeAndAfter"
     if [ -n "${_checkBeforeAndAfter}" ]; then
-      echo "tag:${tag} ${base}:${_baseText}, ${translate}:${_translateText}, check:${CHECK_DATA_LIST[${tag}]} $_checkBeforeAndAfter" >> "${logFile}"
+      echo "tag:${tag} ${base}:${_baseText}, ${translate}:${_translateText}, check:${checkDataList[${tag}]} $_checkBeforeAndAfter" >> "${logFile}"
     fi
   done
   echo
