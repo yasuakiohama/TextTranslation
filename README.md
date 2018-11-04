@@ -218,6 +218,7 @@ http://labs.opentone.co.jp/?p=5890
 https://qiita.com/kaw/items/034bc4221c4526fe8866　　　
 
 sed　　　
+
 https://qiita.com/takech9203/items/b96eff5773ce9d9cc9b3  
 https://qiita.com/hirohiro77/items/7fe2f68781c41777e507  
 
