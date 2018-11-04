@@ -140,8 +140,8 @@ init () {
 #チェック対象のデータを取得する
 createCheckDataList () {
   echo "チェック対象のデータを取得する"
-  local _tagList=(`cut -d ':' -f2 ${translateCheckFile} | cut -d ' ' -f1`)
-  local _textList=(`cut -d ' ' -f3- ${translateCheckFile}`)
+  local _tagList=(`cut -d ':' -f2 ${translateCheckFile} | cut -d ' ' -f1 | tr -d '\r'`)
+  local _textList=(`cut -d ' ' -f3- ${translateCheckFile} | tr -d '\r'`)
   for tag in ${!_tagList[@]}
   do
     CHECK_DATA_LIST[${_tagList[${tag}]}]=${_textList[${tag}]}
@@ -165,8 +165,8 @@ containsElement () {
 
 checkUpdate () {
   echo "元ファイルの更新を確認する"
-  local _tagList=(`cut -d ':' -f2 ${baseCheckFile} | cut -d ' ' -f1`)
-  local _textList=(`cut -d ' ' -f3- ${baseCheckFile}`)
+  local _tagList=(`cut -d ':' -f2 ${baseCheckFile} | cut -d ' ' -f1 | tr -d '\r'`)
+  local _textList=(`cut -d ' ' -f3- ${baseCheckFile} | tr -d '\r'`)
   for index in ${!_tagList[@]};
   do
     containsElement "${_tagList[$index]}" "${!CHECK_DATA_LIST[@]}"
