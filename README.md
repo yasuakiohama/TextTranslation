@@ -237,3 +237,6 @@ jqの?
 .[]?
 Like .[], but no errors will be output if . is not an array or object.
 ```
+
+containsElement   
+https://stackoverflow.com/questions/3685970/check-if-a-bash-array-contains-a-value   
