@@ -208,19 +208,25 @@ tag:6 ja:"土曜日", kr:"토요일", check:"토요일"
 jq  
 https://jqplay.org/jq  
 https://stedolan.github.io/jq/  
+
 json  
 https://www.json-generator.com/    
+
 bash  
 https://qiita.com/b4b4r07/items/e56a8e3471fb45df2f59 
 http://labs.opentone.co.jp/?p=5890  
 https://qiita.com/kaw/items/034bc4221c4526fe8866　　　
+
 sed　　　
 https://qiita.com/takech9203/items/b96eff5773ce9d9cc9b3  
 https://qiita.com/hirohiro77/items/7fe2f68781c41777e507  
+
 cut  
 http://www.rep1.co.jp/staff/200vcxg/217rav/cut_lcd_-linux_command_diction.htm  
+
 tr  
 https://tech.nikkeibp.co.jp/it/article/COLUMN/20060421/235900/  
+
 そのた
 https://ja.stackoverflow.com/questions/44344/%E3%82%B7%E3%82%A7%E3%83%AB%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E3%81%A7%E7%89%B9%E5%AE%9A%E3%81%AE%E6%96%87%E5%AD%97%E5%88%97%E3%81%8B%E3%82%89%E7%89%B9%E5%AE%9A%E3%81%AE%E6%96%87%E5%AD%97%E3%81%BE%E3%81%A7%E3%82%92%E6%8A%BD%E5%87%BA%E3%81%97%E3%81%9F%E3%81%84  
 
