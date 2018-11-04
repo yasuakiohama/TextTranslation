@@ -184,8 +184,8 @@ checkJson () {
   echo "比較を行う"
   for tag in ${!checkDataList[@]}
   do
-    local _baseText=`jq '.[] | select(.tag == '${tag}') | .text' "${baseJson}"`
-    local _translateText=`jq '.[] | select(.tag == '${tag}') | .text' "${translateJson}"`
+    local _baseText=`jq 'recurse | select(.tag == '${tag}')? | .text' "${baseJson}"`
+    local _translateText=`jq 'recurse | select(.tag == '${tag}')? | .text' "${translateJson}"`
     local _checkBeforeAndAfter=""
     if [ "${_baseText}" = "${_translateText}" ]; then
       _checkBeforeAndAfter+=" error01: 未翻訳"
