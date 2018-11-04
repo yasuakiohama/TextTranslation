@@ -1,5 +1,8 @@
-./source/ja/checkNotFound/week.jsonと./source/other/kr/checkNotFound/week.jsonの比較
-./source/other/kr/checkNotFound/check.txt not found
+./source/ja/checkNotFound/a/week.jsonと./source/other/kr/checkNotFound/a/week.jsonの比較
+./source/other/kr/checkNotFound/a/check.txt not found
+
+./source/ja/checkNotFound/b/week.jsonと./source/other/kr/checkNotFound/b/week.jsonの比較
+./source/ja/checkNotFound/b/check.txt not found
 
 ./source/ja/jsonNotFound/week.jsonと./source/other/kr/jsonNotFound/week.jsonの比較
 ./source/other/kr/jsonNotFound/week.json not found
@@ -9,6 +12,9 @@ tag:0 ja:"~!@#$%^&*()_+{}|:<>?'fdfd`fdfd", kr:"~!@#$%^&*()_+{}|:<>?'fdfd`fdfd", 
 tag:1 ja:"\"\n\\n\t\r\\t\\rfdfdffff", kr:"\"\n\\n\t\r\\t\\rfdfdffff", check:"\"\n\\n\t\r\\t\\rfdfdffff____"  error01: 未翻訳 error02: チェック翻訳と違う
 
 ./source/ja/specialCharacter/true/text.jsonと./source/other/kr/specialCharacter/true/text.jsonの比較
+
+./source/ja/update/week.jsonと./source/other/kr/update/week.jsonの比較
+tag:7 text:"雷曜日" が./source/other/kr/update/week.jsonにありません。元のファイルが更新されています
 
 ./source/ja/week/false/week.jsonと./source/other/kr/week/false/week.jsonの比較
 tag:1 ja:"月曜日", kr:"月曜日", check:"월요일"  error01: 未翻訳 error02: チェック翻訳と違う

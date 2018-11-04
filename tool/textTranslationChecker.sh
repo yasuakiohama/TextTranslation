@@ -78,7 +78,9 @@ base="ja"
 baseDirectory="./source/${base}"
 translateDirectory="./source/other/${translate}"
 baseJsonList=(`find ${baseDirectory} -name "*.json"`)
+baseCheckFile=""
 translateJson="";
+translateCheckFile=""
 logFile="./log/${base}_${translate}_error_log.txt"
 baseJson=""
 echo "base="'"'"${base}"'"'
@@ -112,18 +114,25 @@ init () {
     echo "${translateJson} not found" >> "${logFile}"
     return 1
   fi
-  checkFile=`dirname ${translateJson}`"/${CHECK_FILE_NAME}"
-  if [ ! -e "${checkFile}" ]; then
-    echo "${checkFile} not found"
-    echo "${checkFile} not found" >> "${logFile}"
+  baseCheckFile=`dirname ${baseJson}`"/${CHECK_FILE_NAME}"
+  if [ ! -e "${baseCheckFile}" ]; then
+    echo "${baseCheckFile} not found"
+    echo "${baseCheckFile} not found" >> "${logFile}"
     return 2
+  fi
+  translateCheckFile=`dirname ${translateJson}`"/${CHECK_FILE_NAME}"
+  if [ ! -e "${translateCheckFile}" ]; then
+    echo "${translateCheckFile} not found"
+    echo "${translateCheckFile} not found" >> "${logFile}"
+    return 3
   fi
   CHECK_DATA_LIST=()
   #表示
   #echo "CHECK_DATA_LIST count:${#CHECK_DATA_LIST[@]}"
   echo "baseJson="'"'"${baseJson}"'"'
   echo "translateJson="'"'"${translateJson}"'"'
-  echo "checkFile="'"'"${checkFile}"'"'
+  echo "baseCheckFile="'"'"${baseCheckFile}"'"'
+  echo "translateCheckFile="'"'"${translateCheckFile}"'"'
   echo
   return 0
 }
@@ -131,17 +140,40 @@ init () {
 #チェック対象のデータを取得する
 createCheckDataList () {
   echo "チェック対象のデータを取得する"
-  local _tagList=(`cut -d ':' -f2 ${checkFile} | cut -d ' ' -f1`)
-  local _nameList=(`cut -d ' ' -f3- ${checkFile}`)
+  local _tagList=(`cut -d ':' -f2 ${translateCheckFile} | cut -d ' ' -f1`)
+  local _textList=(`cut -d ' ' -f3- ${translateCheckFile}`)
   for tag in ${!_tagList[@]}
   do
-    CHECK_DATA_LIST[${_tagList[${tag}]}]=${_nameList[${tag}]}
+    CHECK_DATA_LIST[${_tagList[${tag}]}]=${_textList[${tag}]}
   done
 #連想配列表示
   echo "データ数=${#CHECK_DATA_LIST[@]}"
   for tag in ${!CHECK_DATA_LIST[@]};
   do
     echo 'CHECK_DATA_LIST["'${tag}'"]='"${CHECK_DATA_LIST[$tag]}"
+  done
+  echo
+}
+
+
+containsElement () {
+  local e match="$1"
+  shift
+  for e; do [[ "$e" == "$match" ]] && return 0; done
+  return 1
+}
+
+checkUpdate () {
+  echo "元ファイルの更新を確認する"
+  local _tagList=(`cut -d ':' -f2 ${baseCheckFile} | cut -d ' ' -f1`)
+  local _textList=(`cut -d ' ' -f3- ${baseCheckFile}`)
+  for index in ${!_tagList[@]};
+  do
+    containsElement "${_tagList[$index]}" "${!CHECK_DATA_LIST[@]}"
+    if [ $? -ne 0 ]; then
+      echo "tag:${_tagList[$index]} text:${_textList[$index]} が${translateJson}にありません。元のファイルが更新されています"
+      echo "tag:${_tagList[$index]} text:${_textList[$index]} が${translateJson}にありません。元のファイルが更新されています" >> "${logFile}"
+    fi
   done
   echo
 }
@@ -194,6 +226,7 @@ run () {
       continue
     fi
     createCheckDataList
+    checkUpdate
     checkJson
   done
 }

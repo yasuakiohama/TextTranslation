@@ -1,0 +1,7 @@
+name.json:0 change "日曜日"
+name.json:1 change "月曜日"
+name.json:2 change "火曜日"
+name.json:3 change "水曜日"
+name.json:4 change "木曜日"
+name.json:5 change "金曜日"
+name.json:6 change "土曜日"
