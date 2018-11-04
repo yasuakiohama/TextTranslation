@@ -107,7 +107,7 @@ echo
 init () {
   #初期化
   baseJson=${1}
-  translateJson=`echo "${baseJson}" | sed "s%${baseDirectory}%${translateDirectory}%g"`
+  translateJson=`echo "${baseJson}" | sed "s%${baseDirectory}%${translateDirectory}%g"` #ディレクトリのパスのため区切り文字が被らないように%に変えて置換を行う
   echo "${baseJson}と${translateJson}の比較" >> "${logFile}"
   if [ ! -e "${translateJson}" ]; then
     echo "${translateJson} not found"
