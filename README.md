@@ -46,11 +46,15 @@ brew install jq
 ```
 $ /usr/local/bin/bash tool/textTranslationChecker.sh kr 
 ```
-グローバル変数
-変数作成
+基本パラメータ作成
 base="ja"
 translate="kr"
+logFile="./log/ja_kr_error_log.txt"
+checkFileName="check.txt"
 baseDirectory="./source/ja"
+translateDirectory="./source/other/kr"
+
+変数作成
 baseJsonList=
 ./source/ja/checkNotFound/a/week.json
 ./source/ja/checkNotFound/b/week.json
@@ -60,8 +64,6 @@ baseJsonList=
 ./source/ja/update/week.json
 ./source/ja/week/false/week.json
 ./source/ja/week/true/week.json
-CHECK_FILE_NAME="check.txt"
-logFile="./log/ja_kr_error_log.txt"
 
 ディレクトリ作成
 mkdir -p log
@@ -89,8 +91,8 @@ translateCheckFile="./source/other/kr/specialCharacter/false/check.txt"
 
 チェック対象のデータを取得する
 データ数=2
-CHECK_DATA_LIST["0"]="~!@#$%^&*()_+{}|:<>?'fdfd`fdfd____"
-CHECK_DATA_LIST["1"]="\"\n\\n\t\r\\t\\rfdfdffff____"
+checkDataList["0"]="~!@#$%^&*()_+{}|:<>?'fdfd`fdfd____"
+checkDataList["1"]="\"\n\\n\t\r\\t\\rfdfdffff____"
 
 元ファイルの更新を確認する
 
@@ -107,8 +109,8 @@ translateCheckFile="./source/other/kr/specialCharacter/true/check.txt"
 
 チェック対象のデータを取得する
 データ数=2
-CHECK_DATA_LIST["0"]="~!@#$%^&*()_+{}|:<>?'fdfd`fdfd____"
-CHECK_DATA_LIST["1"]="\"\n\\n\t\r\\t\\rfdfdffff____"
+checkDataList["0"]="~!@#$%^&*()_+{}|:<>?'fdfd`fdfd____"
+checkDataList["1"]="\"\n\\n\t\r\\t\\rfdfdffff____"
 
 元ファイルの更新を確認する
 
@@ -125,13 +127,13 @@ translateCheckFile="./source/other/kr/update/check.txt"
 
 チェック対象のデータを取得する
 データ数=7
-CHECK_DATA_LIST["0"]="일요일"
-CHECK_DATA_LIST["1"]="월요일"
-CHECK_DATA_LIST["2"]="화요일"
-CHECK_DATA_LIST["3"]="수요일"
-CHECK_DATA_LIST["4"]="목요일"
-CHECK_DATA_LIST["5"]="금요일"
-CHECK_DATA_LIST["6"]="토요일"
+checkDataList["0"]="일요일"
+checkDataList["1"]="월요일"
+checkDataList["2"]="화요일"
+checkDataList["3"]="수요일"
+checkDataList["4"]="목요일"
+checkDataList["5"]="금요일"
+checkDataList["6"]="토요일"
 
 元ファイルの更新を確認する
 tag:7 text:"雷曜日" が./source/other/kr/update/week.jsonにありません。元のファイルが更新されています
@@ -154,13 +156,13 @@ translateCheckFile="./source/other/kr/week/false/check.txt"
 
 チェック対象のデータを取得する
 データ数=7
-CHECK_DATA_LIST["0"]="일요일"
-CHECK_DATA_LIST["1"]="월요일"
-CHECK_DATA_LIST["2"]="화요일"
-CHECK_DATA_LIST["3"]="수요일"
-CHECK_DATA_LIST["4"]="목요일"
-CHECK_DATA_LIST["5"]="금요일"
-CHECK_DATA_LIST["6"]="토요일"
+checkDataList["0"]="일요일"
+checkDataList["1"]="월요일"
+checkDataList["2"]="화요일"
+checkDataList["3"]="수요일"
+checkDataList["4"]="목요일"
+checkDataList["5"]="금요일"
+checkDataList["6"]="토요일"
 
 元ファイルの更新を確認する
 
@@ -182,13 +184,13 @@ translateCheckFile="./source/other/kr/week/true/check.txt"
 
 チェック対象のデータを取得する
 データ数=7
-CHECK_DATA_LIST["0"]="일요일"
-CHECK_DATA_LIST["1"]="월요일"
-CHECK_DATA_LIST["2"]="화요일"
-CHECK_DATA_LIST["3"]="수요일"
-CHECK_DATA_LIST["4"]="목요일"
-CHECK_DATA_LIST["5"]="금요일"
-CHECK_DATA_LIST["6"]="토요일"
+checkDataList["0"]="일요일"
+checkDataList["1"]="월요일"
+checkDataList["2"]="화요일"
+checkDataList["3"]="수요일"
+checkDataList["4"]="목요일"
+checkDataList["5"]="금요일"
+checkDataList["6"]="토요일"
 
 元ファイルの更新を確認する
 
